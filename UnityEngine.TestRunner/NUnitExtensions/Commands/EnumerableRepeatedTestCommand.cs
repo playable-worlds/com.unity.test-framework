@@ -28,12 +28,22 @@ namespace UnityEngine.TestTools
         public IEnumerable ExecuteEnumerable(ITestExecutionContext context)
         {
             var unityContext = (UnityTestExecutionContext)context;
-            int count = unityContext.EnumerableRepeatedTestState;
-
-            while (count < repeatCount)
+            if (unityContext.EnumerableTestState?.GetHashCode() == null)
             {
-                count++;
-                unityContext.EnumerableRepeatedTestState = count;
+                unityContext.EnumerableTestState = new EnumerableTestState();
+            }
+            int count = unityContext.EnumerableTestState.Repeat;
+            var firstCycleAfterResume = count > 0;
+
+            while (count < repeatCount || (firstCycleAfterResume && count <= repeatCount))
+            {
+                if (!firstCycleAfterResume)
+                {
+                    count++;
+                }
+
+                firstCycleAfterResume = false;
+                unityContext.EnumerableTestState.Repeat = count;
                 
                 if (innerCommand is IEnumerableTestMethodCommand)
                 {
@@ -54,7 +64,7 @@ namespace UnityEngine.TestTools
                 }
             }
 
-            unityContext.EnumerableRepeatedTestState = 0;
+            unityContext.EnumerableTestState.Repeat = 0;
         }
     }
 }

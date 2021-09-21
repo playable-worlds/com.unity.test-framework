@@ -11,6 +11,7 @@ using NUnit.Framework.Internal.Execution;
 using UnityEngine.TestTools;
 using UnityEngine.TestTools.Logging;
 using UnityEngine.TestTools.TestRunner;
+using CountdownEvent = System.Threading.CountdownEvent;
 
 namespace UnityEngine.TestRunner.NUnitExtensions.Runner
 {
@@ -283,6 +284,28 @@ namespace UnityEngine.TestRunner.NUnitExtensions.Runner
       }
     }
 
+    private void PerformOneTimeTearDown()
+    {
+        var logScope = new LogScope();
+        try
+        {
+            _teardownCommand.Execute(Context);
+        }
+        catch (Exception ex)
+        {
+            if (ex is NUnitException || ex is TargetInvocationException)
+                ex = ex.InnerException;
+
+            Result.RecordException(ex, FailureSite.SetUp);
+        }
+
+        if (logScope.AnyFailingLogs())
+        {
+            Result.RecordException(new UnhandledLogMessageException(logScope.FailingLogs.First()));
+        }
+        logScope.Dispose();
+    }
+
     private void SortChildren()
     {
       Children.Sort(0, _countOrder, new UnityWorkItemOrderComparer());
@@ -311,11 +334,6 @@ namespace UnityEngine.TestRunner.NUnitExtensions.Runner
           Context.Listener.TestFinished(childResult);
         }
       }
-    }
-
-    private void PerformOneTimeTearDown()
-    {
-      _teardownCommand.Execute(Context);
     }
 
     private string GetSkipReason()

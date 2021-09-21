@@ -28,12 +28,23 @@ namespace UnityEngine.TestTools
         public IEnumerable ExecuteEnumerable(ITestExecutionContext context)
         {
             var unityContext = (UnityTestExecutionContext)context;
-            int count = unityContext.EnumerableRetryTestState;
-
-            while (count < retryCount)
+            if (unityContext.EnumerableTestState?.GetHashCode() == null)
             {
-                count++;
-                unityContext.EnumerableRetryTestState = count;
+                unityContext.EnumerableTestState = new EnumerableTestState();
+            }
+            int count = unityContext.EnumerableTestState.Retry;
+            var firstCycleAfterResume = count > 0;
+
+            while (count < retryCount || (firstCycleAfterResume && count <= retryCount))
+            {
+                if (!firstCycleAfterResume)
+                {
+                    count++;
+                }
+
+                firstCycleAfterResume = false;
+
+                unityContext.EnumerableTestState.Retry = count;
                 
                 if (innerCommand is IEnumerableTestMethodCommand)
                 {
@@ -54,7 +65,7 @@ namespace UnityEngine.TestTools
                 }
             }
 
-            unityContext.EnumerableRetryTestState = 0;
+            unityContext.EnumerableTestState.Retry = 0;
         }
     }
 }

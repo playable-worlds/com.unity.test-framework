@@ -20,9 +20,17 @@ namespace UnityEngine.TestTools
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Method)]
     public class TestMustExpectAllLogsAttribute : Attribute
     {
+        /// <summary>
+        /// Initializes and returns an instance of TestMustExpectAllLogsAttribute.
+        /// </summary>
+        /// <param name="mustExpect">
+        /// A value indicating whether the test must expect all logs.
+        /// </param>
         public TestMustExpectAllLogsAttribute(bool mustExpect = true)
             => MustExpect = mustExpect;
-
+        /// <summary>
+        /// Returns the flag of whether the test must expect all logs.
+        /// </summary>
         public bool MustExpect { get; }
     }
 }

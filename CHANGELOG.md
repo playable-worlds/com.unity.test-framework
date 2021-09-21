@@ -1,4 +1,92 @@
 # Changelog
+
+## [1.1.29] - 2021-08-12
+- Nested enumerator execution order fix (DSTR-227).
+- Fix UI not running any tests if run select on a nested namespaces (DSTR-256).
+
+## [1.1.28] - 2021-06-25
+- Fix CountDownEvent reference due to `com.unity.ext.nunit` update.
+- Various performance optimization to fix "Test execution timed out. No activity received from the player in 600 seconds."(DSTR-100).
+
+## [1.1.27] - 2021-06-15
+- Fix empty reason on passed tests results xml (DSTR-63)
+- Fix Repeat and Retry attribute for UnityTest in PlayMode (DSTR-237).
+- Remove XDK Xbox One platform after Unity 2020.3 
+- Fixed issue when `.` suffix was applied to BuildTargets without extension.
+- Added support for `GameCoreXboxOne` and `GameCoreXboxSeries` reduced location path length.
+
+## [1.1.26] - 2021-05-25
+- Fix html bug in TestRunnerApi API code snippet (DS-1973).
+- Fix typo bug in PreBuildSetup code example (DS-1974).
+- Fix incorrect syntax in command line reference (DS-1971).
+- Fixed a bug where test filter would match project or player path (DSTP-412).
+- Added playerGraphicsAPI TestSettings parameter
+  
+## [1.1.25] - 2021-05-05
+- Fixed a bug where test filter would match project or player path (DSTP-412).
+- Added playerGraphicsAPI TestSettings parameter
+
+## [1.1.24] - 2021-03-04
+- Improving UTF documentation(DSTR-120)
+  - Updated "Actions outside of tests" section of user manual. Added flow charts to clarify execution order for SetUp/TearDown, TestActions, and complete flow (DSTR-121).
+  - Fixed accepted values for scriptingBackend argument to be string literals instead of int values (DSTR-122).
+  - Fixed possible values of ResultState to be Passed, Failed, Skipped, Inconclusive, plus labels instead of Success and Failure (DSTR-125).
+  - Added NUNit version information (DSTR-130).
+  - Added namespace information for LogAsset in user manual (DSTR-124).
+  - Added instructions for creating additional sets of tests (DSTR-129).
+  - Added information on testResults XML output format and exit codes (DSTR-131).
+  - Updated description of testPlatform command line argument to clarify accepted values and their meaning (DSTR-123).
+- Reduce time taken by filtering operations when only a subset of tests is run.
+- Reduced the time taken to rebuild the test tree and to scan for assets a test created but did not delete.
+- Reduce the per-test overhead of running tests in the editor.
+- Added profiler markers around test setup, teardown, and execution.
+- Fixed unstable timeout bug (DSTR-21).
+
+## [1.1.23] - 2021-01-21
+- Improving UTF documentation(DSTR-120)
+  - Updated "Actions outside of tests" section of user manual. Added flow charts to clarify execution order for SetUp/TearDown, TestActions, and complete flow (DSTR-121).
+  - Fixed accepted values for scriptingBackend argument to be string literals instead of int values (DSTR-122).
+  - Fixed possible values of ResultState to be Passed, Failed, Skipped, Inconclusive, plus labels instead of Success and Failure (DSTR-125).
+  - Added NUNit version information (DSTR-130).
+  - Added namespace information for LogAsset in user manual (DSTR-124).
+  - Added instructions for creating additional sets of tests (DSTR-129).
+  - Added information on testResults XML output format and exit codes (DSTR-131).
+  - Updated description of testPlatform command line argument to clarify accepted values and their meaning (DSTR-123).
+  
+## [1.1.22] - 2021-01-21
+- Fixed issue where test result of an explicit test was set to skipped in case it was passing and running from command line with testfilter set to the explicit test (DS-1236).
+- Fixed an issue where tests located in assemblies that did not directly reference any test assemblies were not included (DSTR-30).
+- Fixed an issue where UnitySetup methods were incorrectly being rerun when entering playmode, rather than being skipped (DSTR-68).
+- Internal: Remove ##utp message AssemblyCompilationErrors (DS-1277)
+- Fixed issue where if the timeout was exceeded in SetUp the timeout exception was not thrown(DSTR-21).
+- Removed ability to `Enable playmode tests for all assemblies` from the TestRunner UI, since it is a deprecated behavior. It enforces to use of assembly definition files (DSTR-45).
+- Fixed typo in `LogAssert.cs` documentation.
+
+## [1.1.21] - 2020-12-04
+- Fixed issue where test result of an explicit test was set to skipped in case it was passing and running from command line with testfilter set to the explicit test (DS-1236).
+- Fixed an issue where tests located in assemblies that did not directly reference any test assemblies were not included (DSTR-30).
+- Fixed an issue where UnitySetup methods were incorrectly being rerun when entering playmode, rather than being skipped (DSTR-68).
+- Internal: Remove ##utp message AssemblyCompilationErrors (ds-1277)
+- Fixed issue where if the timeout was exceeded in SetUp the timeout exception was not thrown(DSTR-21).
+- Removed ability to `Enable playmode tests for all assemblies` from the TestRunner UI, since it is a deprecated behavior. It enforces to use of assembly definition files (DSTR-45).
+
+## [1.1.20] - 2020-12-04
+- The logscope is now available in OneTimeTearDown.
+- Fixed an issue where failing tests would not result in the correct exit code if a domain reload happens after the test has run (DS-1304).
+- If a player build fails, the test specific build settings should be cleaned up and the original values restored as intended (DS-1001).
+- Added better error message when using TestRunCallbackAttribute and the implementation is stripped away (DS-454).
+- Fixed an issue where the test results xml would have a zero end-time for tests executed before a domain reload (DSTR-63).
+- Fixed OpenSource in case of a Test in a nested class (DSTR-6)
+- UnityTests with a domain reload now works correctly in combination with Retry and Repeat attributes (DS-428).
+- Fixed OpenSource in case of Tests located inside a package (DS-432)
+
+## [1.1.19] - 2020-11-17
+- Command line runs with an inconclusive test result now exit with exit code 2 (case DS-951).
+- Fixed timeout during UnitySetUp which caoused test to pass instead of failing due to wrong time format.
+- Timeout exeption thrown when timeout time is exeded in the UnitySetup when using `WaitForSeconds(n)`.
+- Updating `com.unity.ext.nunit` version
+- Method marked with UnityTest that are not returning IEnumerator is now giving a proper error (DS-1059).
+
 ## [1.1.18] - 2020-10-07
 - Fixed issue of timeout during UnitySetUp which wasn't detected and allowed the test to pass instead of failing (case DSTR-21)
 
