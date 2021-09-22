@@ -1,6 +1,6 @@
 {
-  "name": "com.unity.test-framework",
-  "displayName": "Test Framework",
+  "name": "com.pw.unity.test-framework",
+  "displayName": "PW Test Framework",
   "version": "1.1.29",
   "unity": "2019.2",
   "unityRelease": "0a10",
@@ -9,11 +9,11 @@
     "Test",
     "TestFramework"
   ],
-  "category": "Unity Test Framework",
+  "category": "PW Unity Test Framework",
   "repository": {
-    "url": "https://github.com/Unity-Technologies/com.unity.test-framework.git",
+    "url": "https://github.com/playable-worlds/com.unity.test-framework.git",
     "type": "git",
-    "revision": "dac53542acdab7a12e9ebf111ac588d0e53cf483"
+    "revision": "52c09aa122d115bc08c6f3ff7aacf4e597aa1b6a"
   },
   "dependencies": {
     "com.unity.ext.nunit": "1.0.6",
@@ -22,8 +22,5 @@
   },
   "relatedPackages": {
     "com.unity.test-framework.tests": "1.1.29"
-  },
-  "upmCi": {
-    "footprint": "461bb7357f40bbbf73fa3e97c5398321af25162b"
   }
 }
